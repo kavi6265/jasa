@@ -1,0 +1,160 @@
+/* Tempadmin.css */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+:root {
+  --primary-color: #088178;
+  --secondary-color: #f8f9fa;
+  --accent-color: #17a2b8;
+  --text-color: #212529;
+  --text-light: #6c757d;
+  --white: #ffffff;
+  --black: #000000;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+  --radius: 8px;
+}
+
+.tempadmin-containero {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f5f7fa;
+}
+
+.tempadmin-contento {
+  padding: 20px;
+  flex: 1;
+  margin-top: 20px;
+}
+
+/* Override header styles for Tempadmin */
+.tempadmin-containero .header-container {
+  background-color: var(--white);
+  box-shadow: 0 2px 10px var(--shadow);
+}
+
+.tempadmin-containero .header-logo h3 {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+/* Custom styles for the tempadmin nav links */
+.tempadmin-containero .nav-links li a {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.tempadmin-containero .nav-links li a i {
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+.tempadmin-containero .nav-links li a:hover {
+  background-color: rgba(8, 129, 120, 0.08);
+  color: var(--primary-color);
+}
+
+.tempadmin-containero .nav-links li a.active {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+/* Logout link styling */
+.tempadmin-containero .logout-link {
+  color: #dc3545 !important;
+}
+
+.tempadmin-containero .logout-link:hover {
+  background-color: rgba(220, 53, 69, 0.08) !important;
+}
+
+/* Profile image styling */
+.tempadmin-containero .profile-image {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary-color);
+  transition: var(--transition);
+}
+
+.tempadmin-containero .profile-link:hover .profile-image {
+  transform: scale(1.05);
+}
+
+/* Mobile responsive specific to tempadmin */
+@media (max-width: 768px) {
+  .tempadmin-contento {
+    padding: 15px;
+    margin-top: 10px;
+  }
+  
+  .tempadmin-containero .nav-links li a {
+    padding: 12px;
+  }
+}
+
+/* Add animation for page transitions */
+.tempadmin-contento {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Card styling for content inside tempadmin */
+.card-containero {
+  background-color: var(--white);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 4px var(--shadow);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.card-headero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.card-titleo {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+/* Status badges */
+.badge-statuso {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.badge-pendingo {
+  background-color: #fff8e1;
+  color: #ffa000;
+}
+
+.badge-completedo {
+  background-color: #e8f5e9;
+  color: #388e3c;
+}

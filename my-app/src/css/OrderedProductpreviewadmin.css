@@ -1,0 +1,411 @@
+/* ===========================
+   ORDER DETAILS PAGE
+   =========================== */
+
+.order-details-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: "Segoe UI", sans-serif;
+  color: #333;
+}
+
+.order-details-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.order-details-header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+/* ===========================
+   LOADING SPINNER
+   =========================== */
+
+.profile-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
+.spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ===========================
+   ORDER SUMMARY
+   =========================== */
+
+.order-summary-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.order-header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-id-section h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.order-date {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* ===========================
+   STATUS TRACKER
+   =========================== */
+
+.status-tracker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 25px 0;
+  position: relative;
+}
+
+.status-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 1;
+  text-align: center;
+}
+
+.status-step .circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background: #fff;
+  z-index: 2;
+}
+
+.status-step .circle.active {
+  border-color: #27ae60;
+  background: #27ae60;
+  color: #fff;
+  font-weight: bold;
+}
+
+.status-step .label {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.status-step .label.active {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.status-step .line {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  width: 100%;
+  height: 3px;
+  background: #ccc;
+  z-index: 1;
+}
+
+.status-step .line.active {
+  background: #27ae60;
+}
+
+/* ===========================
+   ADDRESS SECTION
+   =========================== */
+
+.shipping-address-section {
+  margin-top: 20px;
+}
+
+.shipping-address-section h3 {
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  color: #2c3e50;
+}
+
+.address-details {
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.recipient-name {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.phone-number,
+.full-address,
+.order-notes {
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.order-notes strong {
+  color: #2c3e50;
+}
+
+/* ===========================
+   ADMIN ACTIONS
+   =========================== */
+
+.admin-actions {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.mark-as-delivered-btn {
+  background: #27ae60;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.mark-as-delivered-btn:hover {
+  background: #219150;
+}
+
+.mark-as-delivered-btn:disabled {
+  background: #bbb;
+  cursor: not-allowed;
+}
+
+/* ===========================
+   PRODUCTS SECTION
+   =========================== */
+
+.order-items-section {
+  margin: 30px 0;
+}
+
+.order-items-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.order-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.order-product-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.order-product-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+
+.product-image {
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f0f0f0;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-info {
+  flex-grow: 1;
+  margin-left: 15px;
+}
+
+.product-name {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.product-meta {
+  font-size: 0.9rem;
+  color: #666;
+  display: flex;
+  gap: 15px;
+}
+
+.view-product {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #3498db;
+  font-weight: 500;
+}
+
+.view-product i {
+  font-size: 18px;
+}
+
+/* ===========================
+   PAYMENT SECTION
+   =========================== */
+
+.payment-summary-section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  margin-top: 20px;
+}
+
+.payment-summary-section h3 {
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  color: #2c3e50;
+}
+
+.payment-details {
+  font-size: 0.95rem;
+}
+
+.payment-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.payment-row.total {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.payment-divider {
+  height: 1px;
+  background: #ddd;
+  margin: 12px 0;
+}
+
+.amount {
+  font-weight: 500;
+}
+
+.amount.free {
+  color: #27ae60;
+}
+
+.payment-method {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ===========================
+   ERROR STATE
+   =========================== */
+
+.order-not-found {
+  text-align: center;
+  padding: 40px;
+}
+
+.order-not-found i {
+  font-size: 3rem;
+  color: #e74c3c;
+  margin-bottom: 10px;
+}
+
+.order-not-found h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.back-to-orders {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  background: #3498db;
+  color: #fff;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.back-to-orders:hover {
+  background: #2d82c7;
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+   =========================== */
+
+@media (max-width: 768px) {
+  .order-product-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .product-info {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .view-product {
+    align-self: flex-end;
+    margin-top: 8px;
+  }
+
+  .status-tracker {
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .status-step .line {
+    display: none;
+  }
+}
