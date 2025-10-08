@@ -321,9 +321,13 @@ function Orders() {
                     <span className="order-ida">
                       Order #{order.orderId.substring(0, 8)}
                     </span>
-                    <span className="order-datea">
-                      {formatDate(order.orderTimestamp)}
-                    </span>
+                    <span className="order-date">
+                      {new Date(order.orderTimestamp).toLocaleDateString("en-IN", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                     })}
+                     </span>
                   </div>
                   <div className="order-statusa">
                     {order.delivered ? (

@@ -1,4 +1,9 @@
 /* ===== General ===== */
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 .section-p1 {
   padding: 40px 80px;
 }
@@ -72,34 +77,11 @@ button.normal:hover {
   from { transform: translateX(100%); }
   to { transform: translateX(0); }
 }
-.cart-preview-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background: #088178;
-    color: white;
-}
-.cart-preview-header h3 {
-  font-size: 18px;
-  margin: 0;
- 
-  
-}
-.cart-preview-header i {
-  cursor: pointer;
-  font-size: 22px;
-}
-.cart-preview-items {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.cart-preview-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+.cart-preview-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #088178; color: white; } 
+.cart-preview-header h3 { font-size: 18px; margin: 0; background: #088178; } 
+.cart-preview-header i { cursor: pointer; font-size: 22px; } 
+.cart-preview-items { display: flex; flex-direction: column; gap: 12px; } 
+.cart-preview-item { display: flex; align-items: center; gap: 12px; }
 .cart-preview-item img {
   width: 60px;
   height: 60px;
@@ -126,12 +108,13 @@ button.normal:hover {
   padding-top: 10px;
 }
 
-/* ===== Product Details Page ===== */
+
 #prodetails {
-  display: flex;
-  gap: 50px;
-  margin-top: 30px;
-}
+    display: flex;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  
 
 .single-pro-image {
   flex: 1;
@@ -185,6 +168,8 @@ button.normal:hover {
   font-weight: bold;
   margin: 10px 0;
 }
+
+
 
 .add-to-cart-container {
   display: flex;

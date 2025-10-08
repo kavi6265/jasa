@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { database, auth } from "./firebase";
-import { ref, push, set, onValue, get } from "firebase/database";
+import { ref, push, set, onValue } from "firebase/database";
 import "../css/ProductView.css";
 
 // Image ID mapping
 const IMAGE_ID_MAPPING = {
-  "2131230840": "about_us.png",
+    "2131230840": "about_us.png",
   "2131230841": "afoursheet.png",
   "2131230842": "athreenote.png",
   "2131230843": "athreenotee.jpg",
@@ -142,7 +142,7 @@ const IMAGE_ID_MAPPING = {
   "2131231162": "whiteblack_bg.png",
   "2131231163": "women1.png",
   "2131231164": "xoblue.png",
-  "2131231165": "xooblack.png"
+  "2131231165": "xooblack.png",
 };
 
 function ProductView() {
@@ -198,15 +198,6 @@ function ProductView() {
     });
   }, []);
 
-  if (!currentProduct) {
-    return (
-      <div className="product-not-found section-p1">
-        <h2>Product not found</h2>
-        <button className="normal" onClick={() => navigate("/")}>Return to Shop</button>
-      </div>
-    );
-  }
-
   const showNotification = (message) => {
     setToastMessage(message);
     setShowToast(true);
@@ -238,7 +229,7 @@ function ProductView() {
     const itemData = {
       key: newItemRef.key,
       productname: productToAdd.name,
-      productamt: productToAdd.price.replace("₹",""),
+      productamt: productToAdd.price.replace("₹", ""),
       productimage: productToAdd.img,
       qty,
       rating: 0,
@@ -263,6 +254,15 @@ function ProductView() {
     return [...sameBrand, ...others].slice(0, 3);
   };
 
+  if (!currentProduct) {
+    return (
+      <div className="product-not-found section-p1">
+        <h2>Product not found</h2>
+        <button className="normal" onClick={() => navigate("/")}>Return to Shop</button>
+      </div>
+    );
+  }
+
   return (
     <div>
       {/* Toast */}
@@ -270,8 +270,6 @@ function ProductView() {
         <i className={`bx ${toastMessage.includes("already") ? "bx-info-circle" : "bx-check-circle"}`}></i>
         <span>{toastMessage}</span>
       </div>
-
-      {/* Cart Preview */}
       {showCartPreview && (
         <div className="cart-preview-overlay">
           <div className="cart-preview">
@@ -287,7 +285,7 @@ function ProductView() {
                   </div>
                   <div className="cart-preview-details">
                     <h4>{item.productname}</h4>
-                    <p>₹{item.productamt} x {item.qty}</p>
+                    <p>₹{item.productamt} × {item.qty}</p>
                   </div>
                 </div>
               ))}
@@ -299,7 +297,6 @@ function ProductView() {
           </div>
         </div>
       )}
-
       {/* Product Details */}
       <section id="prodetails" className="section-p1">
         <div className="single-pro-image">
@@ -319,13 +316,17 @@ function ProductView() {
           <div className="add-to-cart-container">
             <div className="quantity-controls">
               <button onClick={() => setQuantity(q => q > 1 ? q - 1 : 1)} disabled={isInCart}>-</button>
-              <input type="number" value={quantity} min="1" onChange={e => setQuantity(e.target.value)} disabled={isInCart}/>
+              <input type="number" value={quantity} min="1" onChange={e => setQuantity(Number(e.target.value))} disabled={isInCart}/>
               <button onClick={() => setQuantity(q => q + 1)} disabled={isInCart}>+</button>
             </div>
             {isInCart ? (
-              <button className="normal in-cart-btn" onClick={goToCart}><i className="bx bx-check"></i> Already in Cart</button>
+              <button className="normal in-cart-btn" onClick={goToCart}>
+                <i className="bx bx-check"></i> Already in Cart
+              </button>
             ) : (
-              <button className="normal add-cart-btn" onClick={() => addToCart()}><i className="bx bx-cart-add"></i> Add To Cart</button>
+              <button className="normal add-cart-btn" onClick={() => addToCart()}>
+                <i className="bx bx-cart-add"></i> Add To Cart
+              </button>
             )}
           </div>
           <div className="product-info">
@@ -335,16 +336,26 @@ function ProductView() {
         </div>
       </section>
 
-      {/* Featured Products */}
+      {/* Newly Added Products */}
       <section id="product1" className="section-p1">
         <h2>Newly Added Products</h2>
         <div className="pro-container">
           {dynamicProducts.map((item, idx) => (
-            <div className="pro" key={idx} onClick={() => navigate("/product", { state: { product: item } })}>
+            <div
+              className="pro"
+              key={idx}
+              onClick={() => {
+                setCurrentProduct(item);
+                setIsInCart(checkIfProductInCart(item));
+                setQuantity(1);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
               <img src={getImagePath(item.img)} alt={item.name} />
               <div className="des">
                 <span>{item.brand}</span>
                 <h5>{item.name}</h5>
+                
                 <div className="price-tag"><h4>{item.price}</h4></div>
               </div>
               {checkIfProductInCart(item) ? (
@@ -366,7 +377,16 @@ function ProductView() {
         <h2>Related Products</h2>
         <div className="pro-container">
           {relatedProducts().map((item, idx) => (
-            <div className="pro" key={idx} onClick={() => navigate("/product", { state: { product: item } })}>
+            <div
+              className="pro"
+              key={idx}
+              onClick={() => {
+                setCurrentProduct(item);
+                setIsInCart(checkIfProductInCart(item));
+                setQuantity(1);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
               <img src={getImagePath(item.img)} alt={item.name} />
               <div className="des">
                 <span>{item.brand}</span>
@@ -374,7 +394,7 @@ function ProductView() {
                 <div className="price-tag"><h4>{item.price}</h4></div>
               </div>
               {checkIfProductInCart(item) ? (
-                <a href="/calculatordeli.png" onClick={e => { e.preventDefault(); showNotification(`${item.name} is already in your cart!`); }}>
+                <a href="#" onClick={e => { e.preventDefault(); showNotification(`${item.name} is already in your cart!`); }}>
                   <i className="bx bx-check cart-added"></i>
                 </a>
               ) : (
@@ -388,62 +408,52 @@ function ProductView() {
       </section>
 
       {/* Footer */}
-      {/* Footer */}
-<footer className="footer">
-  <div className="footer-container">
-    {/* About */}
-    <div className="footer-col about">
-      <h3>Jasa Essential</h3>
-      <p>
-        Your trusted partner for quality stationery products for students and professionals. 
-        We offer a wide range of supplies at competitive prices.
-      </p>
-      <div className="social-icons">
-        <a href="#"><i className="bx bxl-instagram"></i></a>
-      </div>
-    </div>
-
-    {/* Quick Links */}
-    <div className="footer-col">
-      <h4>Quick Links</h4>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/shop">Shop</a></li>
-        <li><a href="/about">About Us</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li><a href="/faq">FAQ</a></li>
-      </ul>
-    </div>
-
-    {/* Customer Service */}
-    <div className="footer-col">
-      <h4>Customer Service</h4>
-      <ul>
-        <li><a href="/account">My Account</a></li>
-        <li><a href="/orders">Order History</a></li>
-        <li><a href="/shipping">Shipping Policy</a></li>
-        <li><a href="/returns">Returns & Exchanges</a></li>
-        <li><a href="/terms">Terms & Conditions</a></li>
-      </ul>
-    </div>
-
-    {/* Contact Us */}
-    <div className="footer-col">
-      <h4>Contact Us</h4>
-      <ul className="contact-info">
-        <li><i className="bx bx-map"></i> 2/3 line medu pension line, Salem 636006</li>
-        <li><i className="bx bx-phone"></i> (+91) 7418676705</li>
-        <li><i className="bx bx-envelope"></i> jasaessential@gmail.com</li>
-      </ul>
-    </div>
-  </div>
-
-  <div className="footer-bottom">
-    <p>© 2025 Jasa Essential. All Rights Reserved.</p>
-    <p>Developed by <strong>RapCode Tech Solutions</strong></p>
-  </div>
-</footer>
-
+      <footer className="footer">
+        <div className="footer-container">
+          <div className="footer-col about">
+            <h3>Jasa Essential</h3>
+            <p>
+              Your trusted partner for quality stationery products for students and professionals.
+              We offer a wide range of supplies at competitive prices.
+            </p>
+            <div className="social-icons">
+              <a href="#"><i className="bx bxl-instagram"></i></a>
+            </div>
+          </div>
+          <div className="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/shop">Shop</a></li>
+              <li><a href="/about">About Us</a></li>
+              <li><a href="/contact">Contact</a></li>
+              <li><a href="/faq">FAQ</a></li>
+            </ul>
+          </div>
+          <div className="footer-col">
+            <h4>Customer Service</h4>
+            <ul>
+              <li><a href="/account">My Account</a></li>
+              <li><a href="/orders">Order History</a></li>
+              <li><a href="/shipping">Shipping Policy</a></li>
+              <li><a href="/returns">Returns & Exchanges</a></li>
+              <li><a href="/terms">Terms & Conditions</a></li>
+            </ul>
+          </div>
+          <div className="footer-col">
+            <h4>Contact Us</h4>
+            <ul className="contact-info">
+              <li><i className="bx bx-map"></i> 2/3 line medu pension line, Salem 636006</li>
+              <li><i className="bx bx-phone"></i> (+91) 7418676705</li>
+              <li><i className="bx bx-envelope"></i> jasaessential@gmail.com</li>
+            </ul>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <p>© 2025 Jasa Essential. All Rights Reserved.</p>
+          <p>Developed by <strong>RapCode Tech Solutions</strong></p>
+        </div>
+      </footer>
     </div>
   );
 }

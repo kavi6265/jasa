@@ -240,6 +240,10 @@ const Checkout = () => {
       alert("Please fill all fields");
       return;
     }
+    if (totalAmount < 50) {
+      alert("Minimum order amount is ₹50. Please add more items to your cart.");
+      return;
+    }
 
     const orderId = push(ref(database, "orders")).key;
     const orderTimestamp = Date.now();
@@ -344,41 +348,60 @@ const Checkout = () => {
       </section>
 
       {/* Footer */}
-      <footer className="section-p1">
-        <div className="col">
-          <h3>Jasa Essential</h3>
-          <h4>Contact</h4>
-          <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
-          <p><strong>Phone:</strong> +01 2222 345 / (+91) 0 123 456 789</p>
-          <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
-          <div className="follow">
-            <h4>Follow us</h4>
-            <div className="icon">
-              <i className="bx bxl-facebook"></i>
-              <i className="bx bxl-twitter"></i>
-              <i className="bx bxl-instagram"></i>
-              <i className="bx bxl-pinterest-alt"></i>
-              <i className="bx bxl-youtube"></i>
+      <footer className="modern-footer">
+        <div className="footer-content">
+          <div className="footer-column brand-column">
+            <h3>Jasa Essential</h3>
+            <p>Your trusted partner for quality stationery products for students and professionals. We offer a wide range of supplies at competitive prices.</p>
+            <div className="social-icons">
+              
+              <a href="https://www.instagram.com/jasa_essential?igsh=MWVpaXJiZGhzeDZ4Ng=="><i className="bx bxl-instagram"></i></a>
+              
             </div>
           </div>
+          
+          <div className="footer-column">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Shop</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">FAQ</a></li>
+            </ul>
+          </div>
+          
+          <div className="footer-column">
+            <h4>Customer Service</h4>
+            <ul>
+              <li><a href="#">My Account</a></li>
+              <li><a href="#">Order History</a></li>
+              <li><a href="#">Shipping Policy</a></li>
+              <li><a href="#">Returns & Exchanges</a></li>
+              <li><a href="#">Terms & Conditions</a></li>
+            </ul>
+          </div>
+          
+          <div className="footer-column contact-info">
+            <h4>Contact Us</h4>
+            <p><i className="bx bx-map"></i> 2/3 line medu pension line 2 nd street  line medu , salem 636006</p>
+            <p><i className="bx bx-phone"></i> (+91) 7418676705</p>
+            
+            <p><i className="bx bx-envelope"></i> jasaessential@gmail.com</p>
+          </div>
         </div>
-
-        <div className="col">
-          <h4>About</h4>
-          <a href="#">About us</a>
-          <a href="#">Delivery Information</a>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms & Conditions</a>
-          <a href="#">Contact Us</a>
-        </div>
-
-        <div className="col">
-          <h4>My Account</h4>
-          <a href="#">Sign In</a>
-          <a href="#">View Cart</a>
-          <a href="#">My Wishlist</a>
-          <a href="#">Track My Order</a>
-          <a href="#">Help</a>
+        
+        <div className="footer-bottom" style={{display:"block"}}>
+          <p>&copy; 2025 Jasa Essential. All Rights Reserved.</p>
+          {/* <div className="payment-methods">
+            <i className="bx bxl-visa"></i>
+            <i className="bx bxl-mastercard"></i>
+            <i className="bx bxl-paypal"></i>
+            <i className="bx bxl-google-pay"></i>
+          </div> */}
+          <div className="footer-content">
+        <p className="copyright1" style={{flexDirection:"row"}}>Developed by <a href="https://rapcodetechsolutions.netlify.app/" className="develop-aa"><img src="/Rapcode.png" style={{width:"20px",height:"20px",display:"flex",margin:"auto",flexDirection:"row", marginLeft:"10px"}} alt="RapCode Logo"></img>RapCode Tech Solutions</a></p>
+      </div>
         </div>
       </footer>
     </div>

@@ -127,7 +127,7 @@ const IMAGE_ID_MAPPING = {
   "2131231144": "stylishpenblue.jpg",
   "2131231146": "tick.png",
   "2131231147": "tipbox.png",
-  "2131231148": "tippencil.png",
+  "2131231148": "tikpencil.png",
   "2131231151": "top_background.png",
   "2131231152": "uioop.png",
   "2131231153": "unknowenprofile.png",
@@ -162,6 +162,9 @@ const Shop = () => {
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState("success");
   const [dynamicProducts, setDynamicProducts] = useState([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [touchStartX, setTouchStartX] = useState(null);
+  const [touchEndX, setTouchEndX] = useState(null);
 
   const products = [
     { img: "casio991.jpg", brand: "Casio", name: "FX-991MS Scientific Calculator", price: "₹1165" },
@@ -172,7 +175,7 @@ const Shop = () => {
     { img: "stylishpenblue.jpg", brand: "Stylish", name: "X3 Ball Pen - Blue (0.7mm)", price: "₹7" },
     { img: "stylishblackpen.png", brand: "Stylish", name: "X3 Ball Pen - Black (0.7mm)", price: "₹7" },
     { img: "athreenotee.jpg", brand: "Jasa Essential", name: "A3 Drawing Book", price: "₹80" },
-    { img: "tippencil.png", brand: "Faber-Castell", name: "Tri-Click Mechanical Pencil 0.7mm", price: "₹15" },
+    { img: "tikpencil.png", brand: "Faber-Castell", name: "Tri-Click Mechanical Pencil 0.7mm", price: "₹15" },
     { img: "bipolar.jpg", brand: "Jasa Essential", name: "Bipolar Graph Book (100 sheets)", price: "₹100" },
     { img: "tipbox.png", brand: "Camlin Kokuyo", name: "0.7mm B Lead Tube", price: "₹5" },
     { img: "scale.png", brand: "Camlin", name: "Exam Portfolio Scale 30cm", price: "₹10" },
@@ -186,11 +189,11 @@ const Shop = () => {
   ];
 
   const [offerImages, setOfferImages] = useState([
-    { img: "stylishpenblue.jpg", product: products.find(p => p.img === "stylishpenblue.jpg") },
+    { img: "afoursheet.png", product: products.find(p => p.img === "afoursheet.png") },
     { img: "smallnote.jpg", product: products.find(p => p.img === "smallnote.jpg") },
     { img: "caltrix.jpg", product: products.find(p => p.img === "caltrix.jpg") }
   ]);
-  const [currentSlide, setCurrentSlide] = useState(0);
+  
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -198,6 +201,30 @@ const Shop = () => {
     }, 4000);
     return () => clearInterval(interval);
   }, [offerImages.length]);
+  const handleTouchStart = (e) => {
+  setTouchStartX(e.touches[0].clientX);
+};
+
+const handleTouchMove = (e) => {
+  setTouchEndX(e.touches[0].clientX);
+};
+
+const handleTouchEnd = () => {
+  if (!touchStartX || !touchEndX) return;
+  const distance = touchStartX - touchEndX;
+  const swipeThreshold = 50; // min px distance for swipe
+  if (distance > swipeThreshold) {
+    // Swipe left → next slide
+    setCurrentSlide((prev) => (prev + 1) % offerImages.length);
+  } else if (distance < -swipeThreshold) {
+    // Swipe right → previous slide
+    setCurrentSlide(
+      (prev) => (prev - 1 + offerImages.length) % offerImages.length
+    );
+  }
+  setTouchStartX(null);
+  setTouchEndX(null);
+};
 
   const categories = ["All", "Casio", "Classmate", "Faber-Castell", "Hauser", "Jasa Essential"];
 
@@ -322,12 +349,17 @@ const Shop = () => {
       {/* Offers Slideshow - TOP */}
       <section className="offers-slideshow-section">
       {offerImages.length > 0 && (
-      <div className="slideshow-wrapper">
-      {/* left text */}
+      <div className="slideshow-wrapper"
+           onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+      
+      >
       <div className="slideshow-content">
         <h2>{offerImages[currentSlide].product?.brand}</h2>
         <p>{offerImages[currentSlide].product?.name}</p>
         <p className="price">{offerImages[currentSlide].product?.price}</p>
+       
       </div>
 
       {/* right product image */}

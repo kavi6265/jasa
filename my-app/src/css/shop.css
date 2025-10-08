@@ -419,6 +419,8 @@
   height: 380px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
   overflow: hidden;
+  touch-action: pan-y;
+  user-select: none;
 }
 
 /* ✅ Background template image with transparency */
